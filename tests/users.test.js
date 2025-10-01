@@ -14,7 +14,7 @@ afterAll((done) => {
 describe("User Management API (Grading)", () => {
     let userId; // Store created user ID
 
-    // 🆕 ✅ Create a user before running other tests
+    //Create a user before running other tests
     beforeAll(async () => {
         const response = await request(server)
             .post("/users")
@@ -23,7 +23,7 @@ describe("User Management API (Grading)", () => {
         userId = response.body.id;
     });
 
-    // ✅ Test: POST /users
+    //Test
     it("POST /users should create a new user", async () => {
         const response = await request(server)
             .post("/users")
@@ -35,7 +35,7 @@ describe("User Management API (Grading)", () => {
         expect(response.body.email).toBe("alice@example.com");
     });
 
-    // ✅ Test: GET /users/:id (Valid user)
+    //Valid user
     it("GET /users/:id should return user details", async () => {
         const response = await request(server)
             .get(`/users/${userId}`)
@@ -46,12 +46,12 @@ describe("User Management API (Grading)", () => {
         expect(response.body.email).toBe("john@example.com");
     });
 
-    // ✅ Test: GET /users/:id (Non-existent user)
+    //Non-existent user
     it("GET /users/:id should return 404 for non-existent user", async () => {
         await request(server).get("/users/nonexistent").expect(404);
     });
 
-    // 🆕 ✅ Test: PUT /users/:id (Update user)
+    //Update user
     it("PUT /users/:id should update user details", async () => {
         const response = await request(server)
             .put(`/users/${userId}`)
@@ -62,7 +62,7 @@ describe("User Management API (Grading)", () => {
         expect(response.body.email).toBe("john.updated@example.com");
     });
 
-    // 🆕 ✅ Test: PUT /users/:id (Non-existent user)
+    //Non-existent user
     it("PUT /users/:id should return 404 if user does not exist", async () => {
         await request(server)
             .put("/users/nonexistent")
@@ -70,7 +70,7 @@ describe("User Management API (Grading)", () => {
             .expect(404);
     });
 
-    // 🆕 ✅ Test: DELETE /users/:id (Remove user)
+    //Remove user
     it("DELETE /users/:id should delete the user", async () => {
         await request(server).delete(`/users/${userId}`).expect(204);
 
@@ -78,7 +78,7 @@ describe("User Management API (Grading)", () => {
         await request(server).get(`/users/${userId}`).expect(404);
     });
 
-    // 🆕 ✅ Test: DELETE /users/:id (Non-existent user)
+    //Non-existent user
     it("DELETE /users/:id should return 404 if user does not exist", async () => {
         await request(server).delete("/users/nonexistent").expect(404);
     });
